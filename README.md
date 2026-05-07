@@ -187,4 +187,4 @@ WATCHDOG_INTERVAL = 30   # 秒
 ## 联系方式
 
 - 项目维护者：RyanZ
-- 邮箱：[your-email@example.com]
+- 邮箱：[ryanzzzz@foxmail.com]
