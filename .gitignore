@@ -17,8 +17,9 @@ build/
 
 # controller
 controller/log/
-controller/resource/tts_cache/
-controller/resource/tts_temp/
+controller/src/log/
+controller/resources/tts_cache/
+controller/resources/tts_temp/
 *.db
 
 # PlatformIO
@@ -29,3 +30,9 @@ mcu/*/.vscode/
 # Environment
 .env
 .env.local
+.claude/
+
+# Virtual Environment
+venv/
+env/
+DevVENV/
