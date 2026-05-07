@@ -5,7 +5,6 @@ __pycache__/
 .eggs/
 *.egg
 dist/
-build/
 *.log
 
 # IDE
@@ -21,6 +20,11 @@ controller/src/log/
 controller/resources/tts_cache/
 controller/resources/tts_temp/
 *.db
+
+# build 产物（保留脚本）
+build/dist/
+build/stage/
+build/pkg/
 
 # PlatformIO
 mcu/*/piolibdeps/

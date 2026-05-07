@@ -31,7 +31,7 @@ class AudioPlayer(QObject):
         if key not in AUDIO_FILES:
             logger.warning(f"音效 {key} 未在 AUDIO_FILES 中定义")
             return None
-        filepath = Path(__file__).parent / AUDIO_DIR / AUDIO_FILES[key]
+        filepath = Path(AUDIO_DIR) / AUDIO_FILES[key]
         if not filepath.exists():
             logger.warning(f"音效文件不存在: {filepath}，{key} 将被跳过")
             return None

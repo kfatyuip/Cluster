@@ -19,9 +19,16 @@ WATCHDOG_INTERVAL = 30   # 秒，看门狗检查间隔
 MSG_LENGTH = 7
 NODE_ID_LENGTH = 5
 
-# 路径（相对于 src/ 目录）
+from pathlib import Path as _Path
+
+# 路径：已安装时用系统路径，开发环境用相对路径
+_INSTALLED_AUDIO = _Path("/usr/share/cluster/audio")
+if _INSTALLED_AUDIO.exists():
+    AUDIO_DIR = str(_INSTALLED_AUDIO)
+else:
+    AUDIO_DIR = str(_Path(__file__).parent / "resources" / "audio")
+
 LOG_DIR = "log"
-AUDIO_DIR = "resources/audio"
 
 # 音频文件映射
 AUDIO_FILES = {
