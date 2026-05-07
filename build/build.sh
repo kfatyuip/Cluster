@@ -64,6 +64,7 @@ chmod 755 "$STAGE_DIR$INSTALL_BIN"
 install -Dm755 "$NUITKA_OUT/$PKG_NAME" "$STAGE_DIR$INSTALL_SHARE/lib/$PKG_NAME"
 
 # .desktop 文件（可选，桌面环境显示图标）
+mkdir -p "$(dirname "$STAGE_DIR$INSTALL_DESKTOP")"
 cat > "$STAGE_DIR$INSTALL_DESKTOP" <<EOF
 [Desktop Entry]
 Name=Cluster
