@@ -86,7 +86,6 @@ FPM_COMMON=(
     --description "$PKG_DESCRIPTION"
     --url "$PKG_URL"
     --prefix /
-    .
 )
 
 # ── .deb (apt) ────────────────────────────────────────────────────────────────
@@ -96,7 +95,8 @@ fpm "${FPM_COMMON[@]}" \
     --depends libegl1 \
     --depends libasound2 \
     --deb-no-default-config-files \
-    -p "$PKG_DIR/${PKG_NAME}_${PKG_VERSION}_amd64.deb"
+    -p "$PKG_DIR/${PKG_NAME}_${PKG_VERSION}_amd64.deb" \
+    .
 
 echo "    生成: $PKG_DIR/${PKG_NAME}_${PKG_VERSION}_amd64.deb"
 
@@ -105,7 +105,8 @@ fpm "${FPM_COMMON[@]}" \
     -t pacman \
     --depends qt6-base \
     --depends alsa-lib \
-    -p "$PKG_DIR/${PKG_NAME}-${PKG_VERSION}-1-x86_64.pkg.tar.zst"
+    -p "$PKG_DIR/${PKG_NAME}-${PKG_VERSION}-1-x86_64.pkg.tar.zst" \
+    .
 
 echo "    生成: $PKG_DIR/${PKG_NAME}-${PKG_VERSION}-1-x86_64.pkg.tar.zst"
 
