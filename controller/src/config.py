@@ -20,15 +20,18 @@ MSG_LENGTH = 7
 NODE_ID_LENGTH = 5
 
 from pathlib import Path as _Path
+import os as _os
 
 # 路径：已安装时用系统路径，开发环境用相对路径
 _INSTALLED_AUDIO = _Path("/usr/share/cluster/audio")
 if _INSTALLED_AUDIO.exists():
     AUDIO_DIR = str(_INSTALLED_AUDIO)
+    # 已安装：日志写到用户家目录
+    LOG_DIR = str(_Path.home() / ".local" / "share" / "cluster" / "log")
 else:
     AUDIO_DIR = str(_Path(__file__).parent / "resources" / "audio")
-
-LOG_DIR = "log"
+    # 开发环境：日志写到相对路径
+    LOG_DIR = "log"
 
 # 音频文件映射
 AUDIO_FILES = {
