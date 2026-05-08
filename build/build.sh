@@ -5,6 +5,9 @@
 
 set -euo pipefail
 
+# 确保 fpm 在 PATH 中
+export PATH="$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
+
 # ── 路径 ─────────────────────────────────────────────────────────────────────
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
@@ -15,7 +18,7 @@ PKG_DIR="$ROOT_DIR/build/pkg"
 
 # ── 包元信息 ──────────────────────────────────────────────────────────────────
 PKG_NAME="cluster"
-PKG_VERSION="${VERSION:-1.0.0}"
+PKG_VERSION="${VERSION:-0.9.0}"
 PKG_MAINTAINER="RyanZ <ryanzzzz@foxmail.com>"
 PKG_DESCRIPTION="MQTT 节点管理与游戏控制系统（征服/占领/爆破三模式）"
 PKG_URL="https://github.com/RyanZhangK/Cluster"
@@ -34,6 +37,7 @@ cd "$SRC_DIR"
 python -m nuitka \
     --enable-plugin=pyside6 \
     --standalone \
+    --include-package=amqtt \
     --include-data-dir=resources/audio=resources/audio \
     --output-dir="$DIST_DIR" \
     --output-filename="$PKG_NAME" \
@@ -52,7 +56,8 @@ cp "$NUITKA_OUT/resources/audio/"*.wav "$STAGE_DIR$INSTALL_SHARE/audio/"
 
 # Qt 运行时库（Nuitka standalone 产物中除主二进制外的所有文件）
 install -dm755 "$STAGE_DIR$INSTALL_SHARE/lib"
-rsync -a --exclude="$PKG_NAME" --exclude="resources/" "$NUITKA_OUT/" "$STAGE_DIR$INSTALL_SHARE/lib/"
+cp -r "$NUITKA_OUT"/* "$STAGE_DIR$INSTALL_SHARE/lib/" 2>/dev/null || true
+rm -f "$STAGE_DIR$INSTALL_SHARE/lib/$PKG_NAME"  # 移除主二进制，后面单独处理
 
 # 用 wrapper 脚本替换 /usr/bin/cluster，设置 LD_LIBRARY_PATH
 cat > "$STAGE_DIR$INSTALL_BIN" <<'EOF'

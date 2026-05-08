@@ -19,7 +19,7 @@ from UI import MainWindow
 def setup_logging() -> None:
     """配置日志：TimedRotatingFileHandler 写入 log/ 目录，按天滚动。"""
     log_dir = Path(__file__).parent / LOG_DIR
-    log_dir.mkdir(exist_ok=True)
+    log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / "controller.log"
 
     handler = TimedRotatingFileHandler(
@@ -29,6 +29,7 @@ def setup_logging() -> None:
         "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
     handler.setFormatter(formatter)
+
 
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
